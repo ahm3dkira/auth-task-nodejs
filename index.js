@@ -125,3 +125,10 @@ app.post("/setSecretMessage", verifyJWT, (req, res) => {
             res.json({ message: "secret message updated" });
         })
 })
+app.get("/", (req, res) => {
+    res.send("Hello World")
+})
+// 404
+app.use((req, res) => {
+    res.status(404).send("404: Page not found")
+})
