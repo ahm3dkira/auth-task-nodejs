@@ -1,21 +1,17 @@
 const express = require("express")
 const mongoose = require("mongoose")
-// jwt bcrypt User
 const User = require("./models/user")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 const dotenv = require("dotenv")
 const cors = require("cors")
-const e = require("express")
-dotenv.config()
 
+dotenv.config()
 const app = express()
 app.use(express.json())
 app.use(cors())
 
 
-
-// second parameter removes deprecation errors
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((res) => {
         // only listen for requests once database data has loaded
@@ -35,7 +31,6 @@ app.post("/register", async (req, res) => {
         res.json({ message: "Username or email has already been taken" })
     }
     else {
-        // const salt = await bcrypt.genSalt(10)
         password = await bcrypt.hash(password, 10)
         const dbUser = new User({
             username: username.toLowerCase(),
